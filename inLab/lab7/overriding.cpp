@@ -3,7 +3,7 @@ using namespace std;
 
 class Base{
     public:
-    virtual void display(){ //virtual- override in derived class 
+    virtual void display(){ //virtual- override in derived class , late binding
         cout << "Base display" << endl;
     }
 };
