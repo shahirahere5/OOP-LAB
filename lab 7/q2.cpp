@@ -24,6 +24,22 @@ class Product{
     virtual void displayProductInfo(){
         cout << "Product ID: " << productID << ", Name: " << productName << ", Price: $" << price << ", Stock Quantity: " << stockQuantity << endl;
     }
+
+     double getPrice(){
+        return price;
+    }
+
+    string getName(){
+        return Name;
+    }
+
+    Product operator+(Product& other) {
+        return Product(0, "Bulk Purchase", this->price + other.price, 0);
+    }
+
+    void operator<<(Product& product) {
+        product.displayProductInfo();
+    }
 };
 
 class Electronics: public Product{
@@ -92,6 +108,15 @@ int main(){
     tshirt.applyDiscount();
     cookie.calculateTotalPrice(3);
     book.displayProductInfo();
+
+    Product bundle = laptop + tshirt;
+    cout << "Bundle Total Price: $" << bundle.getPrice() << endl;
+
+    cout << "Laptop Details: ";
+    laptop << laptop;
+
+    cout << "T-Shirt Details: ";
+    tshirt << tshirt;
 
     return 0;
 }
