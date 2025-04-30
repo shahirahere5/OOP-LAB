@@ -1,0 +1,3 @@
+Sensor 1: Temperature = 23.5°C
+Sensor 2: Pressure = 101.3kPa
+Sensor 3: Humidity = 60%
