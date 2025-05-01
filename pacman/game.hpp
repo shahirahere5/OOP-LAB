@@ -7,6 +7,7 @@
 #include "booster.hpp"
 #include "ghost.hpp"
 #include "map.hpp"
+#include <SFML/Audio.hpp>
 
 class Game {
 private:

@@ -2,7 +2,7 @@
 #include <cmath>
 
 Dot::Dot(float x, float y) : collected(false) {
-    shape.setRadius(4.f);
+    shape.setRadius(6.f);
     shape.setOrigin(4.f, 4.f);
     shape.setFillColor(sf::Color::White);
     shape.setPosition(x, y);

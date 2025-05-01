@@ -1,7 +1,13 @@
 #include "map.hpp"
+#include <cmath>
+#include "ghost.hpp"
+
 
 Map::Map() : wallCount(0) {
     loadMap();
+
+    
+    
 }
 
 void Map::loadMap() {
@@ -75,30 +81,45 @@ void Map::loadMap() {
     
 
     // Clear existing before populating
-dots.clear();
-ghosts.clear();
-
-// Clear old dots
-dots.clear();
-
-for (int y = 40; y <= 560; y += 40) {
-    for (int x = 40; x <= 760; x += 40) {
-        // Skip dots if inside central box (roughly)
-        if ((x >= 220 && x <= 500) && (y >= 220 && y <= 380)) continue;
-
-        // Skip dots on outer wall edges (with buffer)
-        if (x <= 40 || x >= 730 || y <= 40 || y >= 580) continue;
-
-        // Optional: skip near bottom L rooms if you want to fine-tune more
-
-        dots.emplace_back(x, y);
+    dots.clear();
+    ghosts.clear();
+    
+    for (float y = 35; y <= 565; y += 35.f) {
+        for (float x = 35; x <= 735; x += 30.f) {
+    
+            bool collidesWithWall = false;
+            bool nearBooster = false;
+    
+            // --- Check collision with each wall ---
+            for (int i = 0; i < wallCount; ++i) {
+                sf::FloatRect wallBounds = walls[i].getBounds();
+                sf::FloatRect dotBounds(x - 2, y - 2, 4, 4); // Small rectangle around dot position
+    
+                if (wallBounds.intersects(dotBounds)) {
+                    collidesWithWall = true;
+                    break;
+                }
+            }
+    
+            // --- Check if dot is near any booster ---
+            if ((std::abs(x - 645.f) < 16.f && std::abs(y - 480.f) < 16.f) ||    // Booster 0
+                (std::abs(x - 55.f)  < 16.f && std::abs(y - 230.f) < 16.f) ||    // Booster 1
+                (std::abs(x - 340.f) < 16.f && std::abs(y - 490.f) < 16.f)) {    // Booster 2
+                nearBooster = true;
+            }
+    
+            // --- If safe, place dot ---
+            if (!collidesWithWall && !nearBooster) {
+                dots.emplace_back(x, y);
+            }
+        }
     }
-}
 
 
 // Add ghosts
-ghosts.emplace_back(400.f, 300.f);
-ghosts.emplace_back(300.f,400.f);
+ghosts.emplace_back(400.f, 300.f, 15.f, sf::Color::Red);
+ghosts.emplace_back(300.f, 400.f, 15.f, sf::Color::Red);
+
 
 }
 
@@ -122,13 +143,23 @@ bool Map::checkCollision(float playerX, float playerY, float playerRadius) {
     return false;
 }
 
-void Map::activateBooster(float playerX, float playerY) {
+bool Map::activateBooster(float playerX, float playerY) {
     for (auto& booster : boosters) {
         if (booster.checkCollision(playerX, playerY, 16.f)) {
             booster.activate();
+            return true;
         }
     }
+    return false;
 }
 
+void Map::updateGhosts(float deltaTime, const std::vector<Wall>& walls)
+{
+    // Update each ghost with the current walls
+    for (auto& ghost : ghosts)
+    {
+        ghost.update(deltaTime, walls); // Pass the walls to update each ghost
+    }
+}
 
 

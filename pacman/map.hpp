@@ -5,6 +5,10 @@
 #include "booster.hpp"
 #include "ghost.hpp"
 #include "dot.hpp"
+#include <SFML/Audio.hpp>
+
+
+
 
 #define MAX_WALLS 100
 
@@ -21,7 +25,10 @@ public:
     void loadMap(); // no mapId now
     void render(sf::RenderWindow& window);
     bool checkCollision(float playerX, float playerY, float playerRadius);
-    void activateBooster(float playerX, float playerY);
+    bool activateBooster(float playerX, float playerY);
     std::vector<Dot>& getDots() { return dots; }
     std::vector<Ghost>& getGhosts() { return ghosts; }
+    void updateGhosts(float deltaTime, const std::vector<Wall>& walls);
+
+    
 };

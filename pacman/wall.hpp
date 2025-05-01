@@ -11,4 +11,5 @@ public:
     
     void draw(sf::RenderWindow& window);
     bool checkCollision(float playerX, float playerY, float playerRadius);
+    sf::FloatRect getBounds() const;
 };

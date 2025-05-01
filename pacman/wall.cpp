@@ -20,3 +20,7 @@ bool Wall::checkCollision(float playerX, float playerY, float playerRadius) {
                                playerRadius * 2, playerRadius * 2);
     return shape.getGlobalBounds().intersects(playerBounds);
 }
+
+sf::FloatRect Wall::getBounds() const {
+    return shape.getGlobalBounds();
+}

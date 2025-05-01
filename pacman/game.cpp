@@ -1,5 +1,17 @@
 #include "game.hpp"
 
+sf::SoundBuffer dotBuffer;
+sf::Sound dotSound;
+
+sf::SoundBuffer boosterBuffer;
+sf::Sound boosterSound;
+
+sf::SoundBuffer deathBuffer;
+sf::Sound deathSound;
+
+// 100 is maximum
+
+
 
 Game::Game()
     : window(sf::VideoMode(800, 650), "Pac-Man"), player(710.f, 555.f, 15.f), score(0), won(false) {
@@ -16,7 +28,20 @@ Game::Game()
     winText.setFillColor(sf::Color::Green);
     winText.setString("You Win!");
 
+    if (!dotBuffer.loadFromFile("sounds/pickup.wav")) {
+        // error handling
+    }
+    dotSound.setBuffer(dotBuffer);
     
+    if (!boosterBuffer.loadFromFile("sounds/booster.wav")) {
+        // error handling
+    }
+    boosterSound.setBuffer(boosterBuffer);
+    
+    if (!deathBuffer.loadFromFile("sounds/death.wav")) {
+        // error handling
+    }
+    deathSound.setBuffer(deathBuffer);
 
     
 
@@ -52,18 +77,24 @@ void Game::update(float deltaTime) {
 
     player.update(deltaTime);
 
-    map.activateBooster(player.getX(), player.getY());
+    if (map.activateBooster(player.getX(), player.getY())) {
+        boosterSound.play();    // <<< Play booster sound only if activated
+    }
 
 
     for (auto& dot : map.getDots()) {
         if (dot.checkCollision(player.getX(), player.getY(), player.getRadius())) {
+            dotSound.play();
             score++;
+
         }
     }
     
 
     for (auto& ghost : map.getGhosts()) {
-        ghost.update(deltaTime);
+        map.updateGhosts(deltaTime, walls);
+
+
         if (ghost.checkCollision(player.getX(), player.getY(), player.getRadius())) {
             player.loseLife();
         }
