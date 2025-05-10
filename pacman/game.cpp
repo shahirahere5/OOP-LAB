@@ -106,7 +106,7 @@ void Game::update(float deltaTime) {
     if (isPlayerRespawning) {
         deathCooldown -= deltaTime;
         if (deathCooldown <= 0.f) {
-            player.setPosition(710.f, 555.f); // Move player AFTER cooldown
+            player.setPosition(710.f, 555.f); 
             isPlayerRespawning = false;
         }
         return;
