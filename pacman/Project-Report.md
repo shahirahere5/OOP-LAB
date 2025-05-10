@@ -120,11 +120,15 @@ All initial objectives were achieved. The game is fully playable, responsive to 
 
 
 Illustration of our maze map:
+
+
 !<img width="244" alt="2" src="https://github.com/user-attachments/assets/95f4d4c9-4f99-4b57-a4c4-f8c2bd6b2e2c" />
 
 
 
 Final maze map & correcting booster placement:
+
+
 !<img width="247" alt="3" src="https://github.com/user-attachments/assets/6e905222-98e8-4d63-bc69-f49b3730e218" />
 
 
