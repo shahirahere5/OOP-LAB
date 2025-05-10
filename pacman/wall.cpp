@@ -7,7 +7,7 @@ Wall::Wall() {
 
 Wall::Wall(float x, float y, float width, float height) {
     shape.setSize(sf::Vector2f(width, height));
-    shape.setFillColor(sf::Color::Blue);
+    shape.setFillColor(sf::Color::Magenta);
     shape.setPosition(x, y);
 }
 

@@ -4,6 +4,8 @@
 class Player {
 private:
     sf::CircleShape shape;
+    sf::Texture texture;
+
     float speed;
     float normalSpeed;
     bool boosterActive;
@@ -22,4 +24,10 @@ public:
     bool isBoosterActive() const;
     void loseLife();
     int getLives() const;
+    void setPosition(float x, float y);
+    void resetLives();
+    void setRotation(float angle);
+
+
+
 };

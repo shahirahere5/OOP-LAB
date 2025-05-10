@@ -19,16 +19,20 @@ private:
     std::array<Booster, 3> boosters;
     std::vector<Dot> dots;
     std::vector<Ghost> ghosts;
+    sf::Texture ghostTexture;
+
 
 public:
     Map();
-    void loadMap(); // no mapId now
+    void loadMap(); 
     void render(sf::RenderWindow& window);
     bool checkCollision(float playerX, float playerY, float playerRadius);
     bool activateBooster(float playerX, float playerY);
     std::vector<Dot>& getDots() { return dots; }
     std::vector<Ghost>& getGhosts() { return ghosts; }
     void updateGhosts(float deltaTime, const std::vector<Wall>& walls);
+    void resetDots();
+    void resetBoosters();
 
     
 };

@@ -24,7 +24,13 @@ private:
     bool won;
     Map map;
     int lives;
-    
+    sf::Text livesText;
+    sf::Text instructionText;
+    bool gameOver = false;
+    sf::Texture heartTexture;  
+    std::vector<sf::Sprite> hearts;
+    bool isPlayerRespawning;
+    float deathCooldown;
 
 
 public:
@@ -34,4 +40,5 @@ public:
     void update(float deltaTime);
     void render();
     bool checkWallCollision(float x, float y);
+    void restartGame();
 };

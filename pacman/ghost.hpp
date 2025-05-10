@@ -8,6 +8,7 @@ class Ghost {
         sf::Vector2f direction;
         float speed;
         float changeDirTimer;
+        
     
     public:
         Ghost(float x, float y, float radius, sf::Color color);
@@ -16,4 +17,5 @@ class Ghost {
         bool checkCollision(float x, float y, float radius);
         void setDirection(sf::Vector2f dir);
         sf::Vector2f getPosition() const;
+        bool checkWallCollision(float x, float y, float radius, const std::vector<Wall>& walls);
     };

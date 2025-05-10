@@ -30,3 +30,7 @@ bool Dot::checkCollision(float playerX, float playerY, float radius) {
 bool Dot::isCollected() const {
     return collected;
 }
+
+void Dot::reset() {
+    collected = false;  
+}

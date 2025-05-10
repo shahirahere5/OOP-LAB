@@ -4,7 +4,7 @@
 Booster::Booster() {
     shape.setRadius(10);
     shape.setFillColor(sf::Color::Magenta);
-    shape.setPosition(0, 0); // Default position
+    shape.setPosition(0, 0); 
 }
 
 Booster::Booster(float x, float y) : active(true) {
@@ -26,7 +26,12 @@ bool Booster::checkCollision(float playerX, float playerY, float radius) {
     float dy = shape.getPosition().y - playerY;
     float distance = sqrt(dx * dx + dy * dy);
 
-    return distance < (radius + shape.getRadius());
+    if (distance < (radius + shape.getRadius())) {
+        activate();  
+        return true;
+    }
+
+    return false;
 }
 
 bool Booster::isActive() const {
@@ -34,5 +39,9 @@ bool Booster::isActive() const {
 }
 
 void Booster::activate() {
-    active = false;
+    active = false; 
+}
+
+void Booster::reset(){
+    active = true;
 }
